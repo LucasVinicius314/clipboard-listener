@@ -19,9 +19,7 @@ jobs:
           channel: 'stable'
       - run: flutter config --enable-windows-desktop
       - run: flutter build windows --release
-      - run: Compress-Archive -Path build/windows/runner/Release/* -Destination clipboard-listener-windows-64.zip
       - uses: actions/upload-artifact@v2
         with:
-          name: Build-Windows-64
-          path: clipboard-listener-windows-64.zip
-
+          name: clipboard-listener-windows-64.zip
+          path: build/windows/runner/Release/
