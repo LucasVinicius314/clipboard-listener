@@ -1,3 +1,5 @@
+import 'package:clipboard_listener/core/bloc_providers.dart';
+import 'package:clipboard_listener/core/repository_providers.dart';
 import 'package:clipboard_listener/pages/home_page.dart';
 import 'package:clipboard_listener/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -5,8 +7,7 @@ import 'package:flutter/material.dart';
 class App extends StatelessWidget {
   const App({super.key});
 
-  @override
-  Widget build(BuildContext context) {
+  Widget _getApp() {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -25,5 +26,10 @@ class App extends StatelessWidget {
       },
       title: Constants.appName,
     );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return RepositoryProviders(child: BlocProviders(child: _getApp()));
   }
 }

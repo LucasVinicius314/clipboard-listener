@@ -23,6 +23,7 @@ class _SwitchExpansionTileState extends State<SwitchExpansionTile> {
   Widget build(BuildContext context) {
     return Material(
       clipBehavior: Clip.antiAlias,
+      color: Colors.transparent,
       shape: RoundedRectangleBorder(
         borderRadius: const BorderRadius.all(Radius.circular(10)),
         side: BorderSide(color: Theme.of(context).dividerColor),
@@ -40,7 +41,14 @@ class _SwitchExpansionTileState extends State<SwitchExpansionTile> {
             title: Text(widget.title),
             value: widget.value,
           ),
-          if (widget.child != null && widget.value) widget.child!,
+          AnimatedSize(
+            curve: Curves.easeInOut,
+            duration: const Duration(milliseconds: 200),
+            child: Container(
+              child:
+                  widget.child != null && widget.value ? widget.child! : null,
+            ),
+          ),
         ],
       ),
     );
