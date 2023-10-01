@@ -23,3 +23,8 @@ jobs:
         with:
           name: clipboard-listener-windows-64.zip
           path: build/windows/runner/Release/
+      - uses: softprops/action-gh-release@v1
+        with:
+          files: clipboard-listener-windows-64.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
