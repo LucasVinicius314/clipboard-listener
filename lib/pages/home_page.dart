@@ -31,10 +31,10 @@ class _HomePageState extends State<HomePage> {
 
   Widget _getSettingsCard() {
     return BlocConsumer<SettingsBloc, SettingsState>(
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state is GetSettingsDoneState) {
           if (state.settings != null) {
-            _loadSettings(settings: state.settings!);
+            await _loadSettings(settings: state.settings!);
           }
         } else if (state is SaveSettingsDoneState) {
           BlocProvider.of<SettingsBloc>(context).add(GetSettingsEvent());
@@ -130,8 +130,6 @@ class _HomePageState extends State<HomePage> {
             child: VolumeSlider(
               controller: _volumeSliderController,
               onChanged: (value) async {
-                await _audioPlayer.setVolume(value);
-
                 _saveSettings();
               },
             ),
@@ -141,15 +139,17 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void _loadSettings({
+  Future<void> _loadSettings({
     required Settings settings,
-  }) {
+  }) async {
     setState(() {
       _playSoundEffect = settings.playSoundEffect;
       _showSnackbar = settings.showSnackbar;
     });
 
     _volumeSliderController.set(settings.volume);
+
+    await _audioPlayer.setVolume(settings.volume);
   }
 
   void _saveSettings() {
