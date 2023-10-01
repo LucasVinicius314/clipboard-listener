@@ -24,3 +24,4 @@ jobs:
         with:
           name: Build-Windows-64
           path: clipboard-listener-windows-64.zip
+
